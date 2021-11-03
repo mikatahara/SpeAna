@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--	<script type="text/javascript" src="speana.js"></script> -->
+	<link rel="stylesheet" media="screen" href="speana.css">
+	<script src="https://mikatahara.github.io/drawgraph.js"></script>
+<!--	<script src="C:\Users\masah\Documents\mikatahara.github.io\/drawgraph.js"></script> -->
+	<script src="https://mikatahara.github.io/jquery-1.11.2.min.js"></script>
+	<script src="speana.js"></script>
+	<script src="speanasub.js"></script>
+	<script src="fft.js"></script>
+
+	<title>Spectrum Analyzer</title>
+</head>
+
+<body>
+<!--	-------------------------------------------------------------------- -->
+<h2>Spectrum Analyzer</h2>
+<input button value="Start" type="button" id="vgofft"><br>
+<input type="checkbox" id="vtrigger" name="Trigger" checked>
+<label for="Trigger">Trigger</label>
+<input type="number" name="TPos" id="tpos" min="0" max="100" value="12">
+<label for="TLevel">Pos(%)</label>
+<input type="number" name="TLevel" id="tglevel" min="0" max="100" value="25">
+<label for="TLevel">Level(%)</label><br>
+<select id="wyaxis">
+<option value="0">1</option>
+<option value="1">2</option>
+<option value="2">4</option>
+<option value="3">8</option>
+<option value="4">16</option>
+</select>
+Y-Axis Zoom
+<br>
+
+<canvas id="bkg" height="220"></canvas>
+<br>
+
+<select id="wypower">
+<option value="0">-100</option>
+<option value="1">-90</option>
+<option value="2">-80</option>
+<option value="3">-70</option>
+<option value="4">-60</option>
+<option value="5">-50</option>
+<option value="6">-40</option>
+<option value="7">-30</option>
+<option value="8">-20</option>
+<option value="9">-10</option>
+</select>
+Y-Bottom
+
+
+<select id="wyrange">
+<option value="0">100</option>
+<option value="2">80</option>
+<option value="4">60</option>
+<option value="6">40</option>
+</select>
+Y-Range
+
+<select id="linlog">
+<option value="0">LIN</option>
+<option value="1">LOG</option>
+</select>
+<div id="log">
+</div>
+
+<br>
+
+<canvas id="pw1" height="300"></canvas>
+<br>
+
+<!-- <div id="fftleng"></div>
+<div id="gofft"></div> -->
+
+</body>
+
+<!--
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66117399-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+---------------------------------------------------------------------	-->
+</html>

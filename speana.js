@@ -13,6 +13,7 @@ var fdg1 = null;
 var fdg2 = null;
 
 var myDataArray	= null;
+var mDataBuf = null;		//for Average
 var mytimeDataArray	= null;
 var mFrequencyBinCount=0;
 var mRingBuf=null;
@@ -22,6 +23,8 @@ var mWp=0;
 var mTriglev=0.25;
 var mTrigpos=0;
 var mTrigSw=true;
+var mAvr=1;
+var mCnt=0;
 
 var onoff_flag=0;
 var timerId=null;
@@ -113,6 +116,14 @@ window.onload = function(){
 		RedrawPowerView(valp,valr);
 	});
 
+	$('#average').change(function(){
+		mAvr=parseInt($(this).val());
+		mCnt=mAvr;
+		if(mDataBuf!=null){
+			for(var i=0; i<mFrequencyBinCount; i++) mDataBuf[i]=0.;
+		}
+	});
+
 	// Initial Parameter
 	mTriglev=parseInt($('#tglevel').val())/100;
 	mTrigpos=Math.floor(mFftsize*parseInt($('#tpos').val())/100);
@@ -121,7 +132,10 @@ window.onload = function(){
 	mFrequencyBinCount=mFftsize/2;
 	mytimeDataArray = new Float32Array(mFftsize);
 	myDataArray = new Float32Array(mFrequencyBinCount);
+	mDataBuf = new Float32Array(mFrequencyBinCount);
 	mRingBuf = new Float32Array(RingBufSize);
+
+	for(var i=0; i<mFrequencyBinCount; i++) mDataBuf[i]=0.;
 
 	/* •`‰æ—Ìˆæ‚Ì‰Šú‰» */
 	var canvas = document.getElementById( 'bkg' ) ;
@@ -347,8 +361,23 @@ function gotimer(){
 		blackman( mRel );
 		FFT( mRel, mImg, mFftsize, 0 );
 
-		for(var i=0; i<mFrequencyBinCount; i++){
-			myDataArray[i]=10.*Math.log(mRel[i]*mRel[i]+mImg[i]*mImg[i])/L10;
+		if(mAvr==1){
+			for(var i=0; i<mFrequencyBinCount; i++){
+				myDataArray[i]=10.*Math.log(mRel[i]*mRel[i]+mImg[i]*mImg[i])/L10;
+			}
+		} else {
+			for(var i=0; i<mFrequencyBinCount; i++){
+				mDataBuf[i]+=10.*Math.log(mRel[i]*mRel[i]+mImg[i]*mImg[i])/L10;
+			}
+			mCnt--;
+			if(mCnt==0){
+				for(var i=0; i<mFrequencyBinCount; i++){
+					myDataArray[i]=mDataBuf[i]/mAvr;
+				}
+				mCnt=mAvr;
+				for(var i=0; i<mFrequencyBinCount; i++)
+					mDataBuf[i]=0.;
+			}
 		}
 
 		mAxdata(myDataArray,mFrequencyBinCount);
@@ -360,6 +389,12 @@ function gotimer(){
 		log.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp';
 		log.innerHTML += mJ*sampleRate/mFftsize*2;
 		log.innerHTML += "Hz"
+		
+		log.innerHTML += "&nbsp;&nbsp;"
+		log.innerHTML += "Count=";
+		log.innerHTML += mCnt+1;
+		log.innerHTML += "/";
+		log.innerHTML += mAvr;
 
 		fdg1.fClearWindowInside();
 		fdg1.fDrawLine(mytimeDataArray);

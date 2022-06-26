@@ -83,22 +83,59 @@ function RedrawWaveView(n)
 
 function RedrawPowerView(n,m)
 {
-	var canvas = fdg2.cv;
-	
-	var lwidth=document.documentElement.clientWidth;
-	lwidth=Math.min(1200,Math.max(480,lwidth));
-
-	var cwidth=Math.floor(2.*lwidth/3.);
-	var chight=canvas.clientHeight;
-	var lmg=getNumericMargin(lwidth);
-	var fsz=mFontSizeTable[getFontSize(lwidth)];
-
-	fdg2.fSetWindowXY(0,cwidth,0,chight);
+	ix20 = 0;
+	ix21 = window.innerWidth*1.0;
+	iy21 = window.innerHeight*0.925;
+	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
 	fdg2.fClearWindowAll();
 
-	fdg2.ctx.font =fsz;
-	fdg2.ctx.fillStyle = '#222222';
+	ix20 = window.innerWidth*0.1;
+	ix21 = window.innerWidth*0.9;
+	iy21 = window.innerHeight*0.925;
+	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
 
+	if(mLinLog==0){
+		var dMoj=100;
+		fdg2.fSetViewPort(0,mMaxLinFreq,0,1);
+		fdg2.fVWriteText("5kHz" , 5000-dMoj, 0);
+		fdg2.fVWriteText("10kHz", 10000-dMoj, 0);
+		fdg2.fVWriteText("15kHz", 15000-dMoj, 0);
+		fdg2.fVWriteText("20kHz", 20000-dMoj, 0);
+	} else {
+		var dMoj=0.1;
+		fdg2.fSetViewPort(mMinLogFreq,mMaxLogFreq,0,100);
+		fdg2.fVWriteText("100Hz", mAxisLogFreq[1]-dMoj , 0);
+		fdg2.fVWriteText("500Hz", mAxisLogFreq[5]-dMoj , 0);
+		fdg2.fVWriteText("1kHz" , mAxisLogFreq[6]-dMoj , 0);
+		fdg2.fVWriteText("5kHz" , mAxisLogFreq[10]-dMoj, 0);
+		fdg2.fVWriteText("10kHz", mAxisLogFreq[11]-dMoj, 0);
+/*		fdg2.fVLine(mAxisLogFreq[1],0,mAxisLogFreq[1],100);
+		fdg2.fVLine(mAxisLogFreq[5],0,mAxisLogFreq[5],100);
+		fdg2.fVLine(mAxisLogFreq[6],0,mAxisLogFreq[6],100);
+		fdg2.fVLine(mAxisLogFreq[10],0,mAxisLogFreq[10],100);
+		fdg2.fVLine(mAxisLogFreq[11],0,mAxisLogFreq[11],100);
+*/
+	}
+
+	ix20 = window.innerWidth*0.1;
+	ix21 = window.innerWidth*0.9;
+	iy20 = window.innerHeight*0.55;
+	iy21 = window.innerHeight*0.9;
+
+	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
+	fdg2.fSetViewPort(0,100,0,100)
+	fdg2.fStrokeRect();
+	fdg2.fVLine(0,0,100,100);
+
+	fdg2.ctx.font = fsz; 	//"12px 'Times New Roman'";
+
+	var top=n+(10-m);
+	if(top>19) top=19;
+	fdg2.fVWriteText(yaxispow[top], -ptx, 95);
+	fdg2.fVWriteText(yaxispow[((top-n)>>1)+n],-ptx, 50);
+	fdg2.fVWriteText(yaxispow[n], -ptx, 5);
+
+/*
 	var top=n+(10-m);
 	if(top>19) top=19;
 	fdg2.fWriteText(yaxispow[top], lmg-20, 20);
@@ -109,27 +146,12 @@ function RedrawPowerView(n,m)
 	var px1=cwidth-20;
 	var len01=(px1-px0)/4;
 
-	if(mLinLog==0){
-		fdg2.fWriteText("5kHz" , px0+len01*20000/24000, chight);
-		fdg2.fWriteText("10kHz", px0+len01*20000/24000*2, chight);
-		fdg2.fWriteText("15kHz", px0+len01*20000/24000*3, chight);
-		fdg2.fWriteText("20kHz", px0+len01*20000/24000*4, chight);
-	} else {
-		fdg2.fSetWindowXY(px0,px1,0,chight);
-		fdg2.fSetViewPort(mMinLogFreq,mMaxLogFreq,0,chight);
-		fdg2.fVWriteText("100Hz", mAxisLogFreq[1] , 0);
-		fdg2.fVWriteText("500Hz", mAxisLogFreq[5] , 0);
-		fdg2.fVWriteText("1kHz" , mAxisLogFreq[6] , 0);
-		fdg2.fVWriteText("5kHz" , mAxisLogFreq[10], 0);
-		fdg2.fVWriteText("10kHz", mAxisLogFreq[11], 0);
-	}
-
-
 	fdg2.fSetWindowXY(px0,px1,20,chight-20);
 	fdg2.fStrokeRect();
 
 	mdBMin = n*10-100;
 	mdBMax = mdBMin + (10-m)*10;
+*/
 
 	Drawpowergraph();
 

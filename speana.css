@@ -1,6 +1,7 @@
 #sans { color: #222222; font-family:sans-serif ; font-size: 10pt; line-height : 1.5em}
 #mono { color: #222222; font-family:monospace ; font-size: 10pt; line-height : 1.5em}
 
+/*
 body{
 	margin-top:
 	margin-right:28px;
@@ -9,13 +10,37 @@ body{
 	background-color:#eeeeee;
 	color:#222222;
 }
+*/
 
+/*
 #bkg{
-	background-color:#eeeeee;
-	color:#222222;
+	position:absolute;
+	margin: 0 auto;
+	top: 0px;
+	left:0px;
+	z-index:1;
 }
 
 #pw1{
-	background-color:#eeeeee;
-	color:#2222222;
+	position:absolute;
+	margin: 0 auto;
+	top: 0px;
+	left 0px;
+	z-index:100;
+}
+*/
+
+#bkg{
+	z-index:1;
+}
+
+#pw1{
+	z-index:100;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+	left 0;
+    margin: auto;
 }

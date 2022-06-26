@@ -7,7 +7,7 @@ var audioContext=null;
 var audiosource_t=null;
 var node=null;
 var myArrayBuffer=null;
-var sampleRate=0;
+var sampleRate=44100;
 
 var fdg1 = null;
 var fdg2 = null;
@@ -29,6 +29,15 @@ var mCnt=0;
 var onoff_flag=0;
 var timerId=null;
 
+var canvasbkg;
+var canvaspw1;
+
+var ix10,ix11,iy10,iy11;
+var ix20,ix21,iy20,iy21;
+var fn;
+var fsz;
+var ptx;
+
 var mFontSizeTable=[
 	"12px 'Times New Roman'",
 	"13px 'Times New Roman'",
@@ -42,7 +51,7 @@ var mFontSizeTable=[
 // constraints
 var mConstraints = {
 	video: false,
-	audio: { echoCancellation: false }  // エコーキャンセラ無効化
+	audio: true		//{ echoCancellation: false }  // エコーキャンセラ無効化
 };
 
 // constraints (Chrome)
@@ -137,64 +146,81 @@ window.onload = function(){
 
 	for(var i=0; i<mFrequencyBinCount; i++) mDataBuf[i]=0.;
 
-	/* 描画領域の初期化 */
-	var canvas = document.getElementById( 'bkg' ) ;
-	
-	var lwidth=document.documentElement.clientWidth;
-	lwidth=Math.min(1200,Math.max(480,lwidth));
-	var cwidth=Math.floor(2.*lwidth/3.);
-	var chight=canvas.clientHeight;
-	var lmg=getNumericMargin(lwidth);
-	var fsz=mFontSizeTable[getFontSize(lwidth)];
+/* canvas 設定 */
+	canvaspw1 = document.getElementById( 'pw1' ) ;
+	canvasbkg = document.getElementById( 'bkg' ) ;
 
-	console.log(getFontSize(1200));
-	console.log(getFontSize(480));
+/* 描画領域の初期化 */
+	fdg1 = new DrawGraph(0,100,0,100);
+	fdg1.fSetCanvas(canvasbkg);
+	fdg1.fResize();
+	fdg1.ctx.globalAlpha=0.6;
 
-	canvas.width = cwidth;
-	fdg1 = new DrawGraph(0,cwidth,0,chight);
-	fdg1.fSetCanvas(canvas);
+	fdg2 = new DrawGraph(0,100,0,100);
+	fdg2.fSetCanvas(canvaspw1);
+	fdg2.fResize();
+	fdg2.ctx.globalAlpha=0.6;
 
-	fdg1.fSetViewPort(0,cwidth,0,chight);
-//	fdg1.fStrokeRect();
+/* ViewPort/ Window の設定 */
+	ix10 = window.innerWidth*0.1;
+	ix11 = window.innerWidth*0.9;
+	iy10 = window.innerHeight*0.1;
+	iy11 = window.innerHeight*0.45;
 
-//	fdg1.fVRect(105,20,cwidth-20,chight-20);
-	fdg1.ctx.font =fsz; //"12px 'Times New Roman'";
-	fdg1.fWriteText("+1.0", lmg, 20);
-	fdg1.fWriteText(" 0.0", lmg, 115);
-	fdg1.fWriteText("-1.0", lmg, 210);
-
-	fdg1.fSetWindowXY(lmg+43,cwidth-20,20,chight-20);
+	fdg1.fSetWindowXY(ix10,ix11,iy10,iy11);
+	fdg1.fSetViewPort(0,100,0,100);
+	fdg1.fVLine(0,0,100,100);
 	fdg1.fStrokeRect();
-	fdg1.fSetViewPort(0,1024,-1,1);
 
-	/* 描画領域の初期化 */
-	canvas = document.getElementById( 'pw1' ) ;
-	canvas.width = cwidth;
-	chight=canvas.clientHeight;
-	fdg2 = new DrawGraph(0,cwidth,0,chight);
-	fdg2.fSetCanvas(canvas);
+	ix20 = window.innerWidth*0.1;
+	ix21 = window.innerWidth*0.9;
+	iy20 = window.innerHeight*0.55;
+	iy21 = window.innerHeight*0.9;
 
-	fdg2.fSetViewPort(0,cwidth,0,chight);
-//	fdg2.fStrokeRect();
-
-//	fdg2.fVRect(105,20,cwidth-20,chight-20);
-	fdg2.ctx.font =fsz; //"12px 'Times New Roman'";
-	fdg2.fWriteText("   0dB", lmg-20, 20);
-	fdg2.fWriteText(" -50dB", lmg-20, 155);
-	fdg2.fWriteText("-100dB", lmg-20, 290);
-
-	var px0=lmg+43;
-	var px1=cwidth-20;
-	var len01=(px1-px0)/4;
-
-	fdg2.fWriteText("5kHz" , px0+len01  -32, chight);
-	fdg2.fWriteText("10kHz", px0+len01*2-32, chight);
-	fdg2.fWriteText("15kHz", px0+len01*3-32, chight);
-	fdg2.fWriteText("20kHz", px0+len01*4-32, chight);
-
-	fdg2.fSetWindowXY(px0,px1,20,chight-20);
+	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
+	fdg2.fSetViewPort(0,100,0,100);
+	fdg2.fVLine(0,0,100,100);
 	fdg2.fStrokeRect();
-	fdg2.fSetViewPort(0,1024,-80,20);
+
+/* 描画領域の初期化 */
+	var lwidth=window.innerWidth;
+	lwidth=Math.min(1200,Math.max(480,lwidth));
+	fn=getFontSize(lwidth);
+	fsz=mFontSizeTable[fn];
+	ptx=Math.floor(42./fdg1.fAx+fn*0.5);
+
+	/* X軸 */
+	fdg1.ctx.font = fsz;
+	fdg1.fVWriteText("+1.0", -ptx, 0);
+	fdg1.fVWriteText(" 0.0", -ptx, 50);
+	fdg1.fVWriteText("-1.0", -ptx, 100);
+
+	ptx=Math.floor(48./fdg1.fAx+fn*0.5);
+	fdg2.ctx.font = fsz; 	//"12px 'Times New Roman'";
+	fdg2.fVWriteText("   0dB", -ptx, 95);
+	fdg2.fVWriteText(" -50dB", -ptx, 50);
+	fdg2.fVWriteText("-100dB", -ptx, 5);
+
+	/* Y軸 */
+	iy21 = window.innerHeight*0.925;
+	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
+	fdg2.fSetViewPort(0,100,0,100);
+	fdg2.fVWriteText("5kHz" , 20, 0);
+	fdg2.fVWriteText("10kHz", 45, 0);
+	fdg2.fVWriteText("15kHz", 70, 0);
+	fdg2.fVWriteText("20kHz", 95, 0);
+
+// ---------------------------------------------------------------------------
+	log=document.getElementById("log");
+
+	iy21 = window.innerHeight*0.9;
+	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
+	fdg2.fSetViewPort(0,100,0,100);
+
+// ---------------------------------------------------------------------------
+	fdg1.fSetViewPort(0,1024,-1,1);
+	initXAixs();
+
 }
 
 
@@ -202,7 +228,8 @@ window.onload = function(){
 // 画面のwidthから、Y軸の数字表示のマージンを求める
 function getNumericMargin(x)
 {
-	return Math.floor(0.0417*x-8.0)
+//	return Math.floor(0.0417*x-8.0)
+	return Math.floor(0.08*x - 8.0)
 }
 
 //
@@ -220,19 +247,43 @@ function gofft()
 	node = audioContext.createScriptProcessor(mFftsize, 2, 2);
 	sampleRate = audioContext.sampleRate;
 	myArrayBuffer = audioContext.createBuffer(2, mFftsize, audioContext.sampleRate);
+	log.innerText += "GO FFT7\n"
 
 // ---------------------------------------------------------------------------
 	//Get Usermedia
+    navigator.getUserMedia = navigator.getUserMedia ||
+                              navigator.webkitGetUserMedia ||
+                              navigator.mozGetUserMedia;
+
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		log.innerText += "Navi OK\n"
+	}
+
+/*
 	navigator.getUserMedia(
 		mConstraints,
 		function(stream){
+			log.innerText += "OK\n"
 			audiosource_t = audioContext.createMediaStreamSource(stream);
 			audiosource_t.connect(node);
 		},
 		function(e) {	// I can't use getUserMedia
+			log.innerText += "NG\n"
 			console.log(e);
 		}
 	);
+*/
+
+	navigator.mediaDevices.getUserMedia(mConstraints).then(function(stream){
+			log.innerText += "OK\n"
+			audiosource_t = audioContext.createMediaStreamSource(stream);
+			audiosource_t.connect(node);
+		}).catch(function(err) {
+			log.innerText += err
+			log.innerText += "NG\n"
+			console.log (err);
+	});
+
 
 // ---------------------------------------------------------------------------
 	// Audio Node Connection
@@ -251,7 +302,7 @@ function gofft()
 	gotimer();
 
 // ---------------------------------------------------------------------------
-	log=document.getElementById("log");
+//	log=document.getElementById("log");
 }
 
 // ---------------------------------------------------------------------------

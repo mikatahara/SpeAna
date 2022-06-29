@@ -55,30 +55,30 @@ function initXAixs()
 
 function RedrawWaveView(n)
 {
-	var canvas = fdg1.cv;
-	
-	var lwidth=document.documentElement.clientWidth;
-	lwidth=Math.min(1200,Math.max(480,lwidth));
 
-	var cwidth=Math.floor(2.*lwidth/3.);
-	var chight=canvas.clientHeight;
-	var lmg=getNumericMargin(lwidth);
-	var fsz=mFontSizeTable[getFontSize(lwidth)];
+	ix10 = 0;
+	ix11 = window.innerWidth*1.0;
+	iy10 = window.innerHeight*0.05;
+	iy11 = window.innerHeight*0.940;
+	fdg1.fSetWindowXY(ix10,ix11,iy10,iy11);
+	fdg1.fClearWindowAll();
 
-	fdg1.fSetWindowXY(0,cwidth,0,chight);
-	fdg1.fClearWindowInside();
 
-	fdg1.ctx.font =fsz;
-	fdg1.ctx.fillStyle = '#222222';
+	ix10 = window.innerWidth*0.1;
+	ix11 = window.innerWidth*0.9;
+	iy10 = window.innerHeight*0.1;
+	iy11 = window.innerHeight*0.45;
 
-	fdg1.fWriteText(yaxisstr[2*n], lmg, 20);
-	fdg1.fWriteText(" 0.0", lmg, 115);
-	fdg1.fWriteText(yaxisstr[2*n+1], lmg, 210);
-
-	fdg1.fSetWindowXY(lmg+43,cwidth-20,20,chight-20);
+	fdg1.fSetWindowXY(ix10,ix11,iy10,iy11);
+	fdg1.fSetViewPort(0,100,0,100);
+	fdg1.fVLine(0,0,100,100);
 	fdg1.fStrokeRect();
-	fdg1.fSetViewPort(0,1024,parseFloat(yaxisstr[2*n+1]),parseFloat(yaxisstr[2*n]));
-	fdg1.fDrawLine(mytimeDataArray);
+
+	/* XŽ² */
+	fdg1.ctx.font = fsz;
+	fdg1.fVWriteText(yaxisstr[2*n], -ptx, 0);
+	fdg1.fVWriteText(" 0.0", -ptx, 50);
+	fdg1.fVWriteText(yaxisstr[2*n+1], -ptx, 100);
 }
 
 function RedrawPowerView(n,m)

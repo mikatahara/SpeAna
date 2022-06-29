@@ -80,7 +80,7 @@ table{
 
 .number{
 	z-index:3;
-	width:50%;
+	width:120px;
 	padding:10px;
 	margin-left	:28px;
 	margin-top	:18px;
@@ -93,7 +93,7 @@ table{
 
 select{
 	z-index:3;
-	width:50%;
+	width:120px;
 	padding:10px;
 	margin-left	:28px;
 	margin-top	:18px;
@@ -104,5 +104,57 @@ select{
 	border-radius:20px;
 }
 
+@media screen and (max-width: 1000px) {
 
+	h2{
+		z-index:3;
+		margin-left: 28px;
+		font-size: 52px;
+	}
+
+	.button{
+		z-index:3;
+		width:400px;
+		height:100px;
+		padding:10px;
+		margin-left	:28px;
+		margin-top	:18px;
+		margin-bottom	:18px;
+		font-size: 52px;
+		background: #cde8fa;
+		border: 1px solid #68779a;
+		border-radius:20px;
+	}
+
+	.number{
+		z-index:3;
+		width:400px;
+		height:100px;
+		padding:10px;
+		margin-left	:28px;
+		margin-top	:18px;
+		margin-bottom	:18px;
+		font-size: 52px;
+	/*	background: #cde8fa;
+		border: 1px solid #68779a; */
+		border-radius:20px;
+	}
+
+	select{
+		z-index:3;
+		width:400px;
+		height:100px;
+		padding:10px;
+		margin-left	:28px;
+		margin-top	:18px;
+		margin-bottom	:18px;
+		font-size: 52px;
+	/*	background: #cde8fa;
+		border: 1px solid #68779a; */
+		border-radius:20px;
+	}
+	table{
+		font-size: 48px;
+	}
+}
 

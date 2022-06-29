@@ -85,13 +85,13 @@ function RedrawPowerView(n,m)
 {
 	ix20 = 0;
 	ix21 = window.innerWidth*1.0;
-	iy21 = window.innerHeight*0.925;
+	iy21 = window.innerHeight*0.940;
 	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
 	fdg2.fClearWindowAll();
 
 	ix20 = window.innerWidth*0.1;
 	ix21 = window.innerWidth*0.9;
-	iy21 = window.innerHeight*0.925;
+	iy21 = window.innerHeight*0.940;
 	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
 
 	if(mLinLog==0){

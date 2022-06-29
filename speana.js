@@ -214,7 +214,7 @@ window.onload = function(){
 	fdg2.fVWriteText("-100dB", -ptx, 5);
 
 	/* YŽ² */
-	iy21 = window.innerHeight*0.925;
+	iy21 = window.innerHeight*0.940;
 	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
 	fdg2.fSetViewPort(0,100,0,100);
 	fdg2.fVWriteText("5kHz" , 20, 0);

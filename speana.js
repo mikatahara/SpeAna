@@ -75,22 +75,34 @@ window.onload = function(){
 				node.onaudioprocess=process_t;
 			}
 			gotimer();
+			this.value="Start";
+			this.style.backgroundColor="#f9edce";
+		} else {
+			onoff_flag=0;
+			clearInterval(timerId);
+			this.value="Stop";
+			this.style.backgroundColor="#cde8fa";
 		}
 	});
+	
+	
+	$('#vtrigger').click(function(){
+		if(mTrigSw){
+			mTrigSw=false;
+			this.value="Trigger OFF";
+			this.style.backgroundColor="#f9edce";
+		} else {
+			mTrigSw=true;
+			this.value="Trigger ON";
+			this.style.backgroundColor="#cde8fa";
+		}
+	});
+
 
 	$('#fftleng').change(function() {
 		console.log($(this).val());
 		var x=$(this).val();
 		mFftsize = Math.pow(2, x);
-	});
-
-	$('#vtrigger').click(function(){
-		var r = $(this).prop('checked');
-		if(r){
-			mTrigSw=true;
-		} else {
-			mTrigSw=false;
-		}
 	});
 
 	$('#tglevel').change(function() {
@@ -247,7 +259,6 @@ function gofft()
 	node = audioContext.createScriptProcessor(mFftsize, 2, 2);
 	sampleRate = audioContext.sampleRate;
 	myArrayBuffer = audioContext.createBuffer(2, mFftsize, audioContext.sampleRate);
-	log.innerText += "GO FFT7\n"
 
 // ---------------------------------------------------------------------------
 	//Get Usermedia
@@ -255,9 +266,9 @@ function gofft()
                               navigator.webkitGetUserMedia ||
                               navigator.mozGetUserMedia;
 
-	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+/*	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 		log.innerText += "Navi OK\n"
-	}
+	}*/
 
 /*
 	navigator.getUserMedia(
@@ -275,7 +286,6 @@ function gofft()
 */
 
 	navigator.mediaDevices.getUserMedia(mConstraints).then(function(stream){
-			log.innerText += "OK\n"
 			audiosource_t = audioContext.createMediaStreamSource(stream);
 			audiosource_t.connect(node);
 		}).catch(function(err) {

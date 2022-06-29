@@ -35,7 +35,7 @@ body{
 }
 
 #pw1{
-	z-index:100;
+	z-index:2;
 }
 
 canvas {
@@ -44,3 +44,64 @@ canvas {
 	left 0;
     margin: auto;
 }
+
+.skip{
+    height: 100vh;
+}
+
+h2{
+	z-index:3;
+    margin-left: 28px;
+}
+
+div{
+	margin-left	:28px;
+}
+
+table{
+	font-size: large;
+	margin-left	:28px;
+
+}
+
+.button{
+	z-index:3;
+	width:300px;
+	padding:10px;
+	margin-left	:28px;
+	margin-top	:18px;
+	margin-bottom	:18px;
+	font-size: large;
+	background: #cde8fa;
+	border: 1px solid #68779a;
+	border-radius:20px;
+}
+
+.number{
+	z-index:3;
+	width:120px;
+	padding:10px;
+	margin-left	:28px;
+	margin-top	:18px;
+	margin-bottom	:18px;
+	font-size: large;
+/*	background: #cde8fa;
+	border: 1px solid #68779a; */
+	border-radius:20px;
+}
+
+select{
+	z-index:3;
+	width:120px;
+	padding:10px;
+	margin-left	:28px;
+	margin-top	:18px;
+	margin-bottom	:18px;
+	font-size: large;
+/*	background: #cde8fa;
+	border: 1px solid #68779a; */
+	border-radius:20px;
+}
+
+
+

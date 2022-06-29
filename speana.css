@@ -104,7 +104,7 @@ select{
 	border-radius:20px;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1024px) {
 
 	h2{
 		z-index:3;

@@ -266,9 +266,9 @@ function gofft()
                               navigator.webkitGetUserMedia ||
                               navigator.mozGetUserMedia;
 
-/*	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 		log.innerText += "Navi OK\n"
-	}*/
+	}
 
 /*
 	navigator.getUserMedia(
@@ -286,6 +286,7 @@ function gofft()
 */
 
 	navigator.mediaDevices.getUserMedia(mConstraints).then(function(stream){
+			log.innerText += "OK\n"
 			audiosource_t = audioContext.createMediaStreamSource(stream);
 			audiosource_t.connect(node);
 		}).catch(function(err) {

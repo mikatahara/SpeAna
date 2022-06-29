@@ -66,7 +66,8 @@ table{
 
 .button{
 	z-index:3;
-	width:300px;
+	width:50%;
+	height:20%;
 	padding:10px;
 	margin-left	:28px;
 	margin-top	:18px;
@@ -79,7 +80,7 @@ table{
 
 .number{
 	z-index:3;
-	width:120px;
+	width:50%;
 	padding:10px;
 	margin-left	:28px;
 	margin-top	:18px;
@@ -92,7 +93,7 @@ table{
 
 select{
 	z-index:3;
-	width:120px;
+	width:50%;
 	padding:10px;
 	margin-left	:28px;
 	margin-top	:18px;

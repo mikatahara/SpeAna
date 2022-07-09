@@ -1,13 +1,13 @@
 var log = null;
 var str = null;
-var mFftsize=2048;
+var mFftsize=16384;
 var L10=Math.log(10);
 
 var audioContext=null;
 var audiosource_t=null;
 var node=null;
 var myArrayBuffer=null;
-var sampleRate=44100;
+var sampleRate=mFftsize*32;
 
 var fdg1 = null;
 var fdg2 = null;

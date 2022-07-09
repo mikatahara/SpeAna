@@ -21,6 +21,12 @@ var yaxispow=[
 	"   0dB","  10dB","  20dB","  30dB","  40dB",
 	"  50dB","  60dB","  70dB","  80dB","  90dB",
 ];
+var yaxisvalue=[
+	-100, -90, -80, -70, -60,
+	 -50, -40, -30, -20, -10,
+	   0,  10,  20,  30,  40,
+	  50,  60,  70,  80,  90,
+];
 
 function initXAixs()
 {
@@ -109,12 +115,6 @@ function RedrawPowerView(n,m)
 		fdg2.fVWriteText("1kHz" , mAxisLogFreq[6]-dMoj , 0);
 		fdg2.fVWriteText("5kHz" , mAxisLogFreq[10]-dMoj, 0);
 		fdg2.fVWriteText("10kHz", mAxisLogFreq[11]-dMoj, 0);
-/*		fdg2.fVLine(mAxisLogFreq[1],0,mAxisLogFreq[1],100);
-		fdg2.fVLine(mAxisLogFreq[5],0,mAxisLogFreq[5],100);
-		fdg2.fVLine(mAxisLogFreq[6],0,mAxisLogFreq[6],100);
-		fdg2.fVLine(mAxisLogFreq[10],0,mAxisLogFreq[10],100);
-		fdg2.fVLine(mAxisLogFreq[11],0,mAxisLogFreq[11],100);
-*/
 	}
 
 	ix20 = window.innerWidth*0.1;
@@ -135,23 +135,8 @@ function RedrawPowerView(n,m)
 	fdg2.fVWriteText(yaxispow[((top-n)>>1)+n],-ptx, 50);
 	fdg2.fVWriteText(yaxispow[n], -ptx, 5);
 
-/*
-	var top=n+(10-m);
-	if(top>19) top=19;
-	fdg2.fWriteText(yaxispow[top], lmg-20, 20);
-	fdg2.fWriteText(yaxispow[((top-n)>>1)+n], lmg-20, 155);
-	fdg2.fWriteText(yaxispow[n], lmg-20, 290);
-
-	var px0=lmg+43;
-	var px1=cwidth-20;
-	var len01=(px1-px0)/4;
-
-	fdg2.fSetWindowXY(px0,px1,20,chight-20);
-	fdg2.fStrokeRect();
-
-	mdBMin = n*10-100;
-	mdBMax = mdBMin + (10-m)*10;
-*/
+	mdBMax=yaxisvalue[top];
+	mdBMin=yaxisvalue[n];
 
 	Drawpowergraph();
 

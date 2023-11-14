@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<!--	<script type="text/javascript" src="speana.js"></script> -->
+	<!--	<script type="text/javascript" src="speana.js"></script> -->
 	<link rel="stylesheet" media="screen" href="speana.css">
 	<script src="https://mikatahara.github.io/drawgraph.js"></script>
-<!--	<script src="C:\Users\masah\Documents\mikatahara.github.io\/drawgraph.js"></script> -->
+	<!--	<script src="C:\Users\masah\Documents\mikatahara.github.io\/drawgraph.js"></script> -->
 	<script src="https://mikatahara.github.io/jquery-1.11.2.min.js"></script>
 	<script src="speana.js"></script>
 	<script src="speanasub.js"></script>
@@ -14,118 +15,145 @@
 </head>
 
 <body>
-<!--	-------------------------------------------------------------------- -->
+	<!--	-------------------------------------------------------------------- -->
 
-<!--	-------------------------------------------------------------------- -->
+	<!--	-------------------------------------------------------------------- -->
 
-<h2>Spectrum Analyzer</h2>
+	<h2>Spectrum Analyzer</h2>
 
-<canvas id="pw1"></canvas>
-<canvas id="bkg"></canvas>
-<div class="skip">
-</div>
+	<canvas id="pw1"></canvas>
+	<canvas id="bkg"></canvas>
+	<div class="skip">
+	</div>
 
-<input button value="Stop" type="button" id="vgofft" class="button"><br>
-<input button value="Trigger ON" type="button" id="vtrigger" class="button"><br>
+	<input button value="Stop" type="button" id="vgofft" class="button"><br>
+	<input button value="Trigger ON" type="button" id="vtrigger" class="button"><br>
 
+<br>
+	<table border="0">
+		<!--	-------------------------------------------------------------------- -->
+		<tr>
+			<td colspan="2" height="40" class="fullx">Threshold</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="TLevel">Pos(%)</label>
+			</td>
+			<td>
+				<input type="number" name="TPos" id="tpos" class="number" min="0" max="100" value="12">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="TLevel">Level(%)</label>
+			</td>
+			<td>
+				<input type="number" name="TLevel" id="tglevel" class="number" min="0" max="100" value="25">
+			</td>
+		</tr>
 
-<table border="0">
-<tr>
-<td>
-<label for="TLevel">Pos(%)</label>
-</td>
-<td>
-<input type="number" name="TPos" id="tpos" class="number" min="0" max="100" value="12">
-</td>
-</tr>
-<tr>
+		<!--	-------------------------------------------------------------------- -->
+		<tr>
+			<td colspan="2" height="40" class="fullx">Time Viessw</td>
+		</tr>
 
-<td>
-<label for="TLevel">Level(%)</label>
-</td>
-<td>
-<input type="number" name="TLevel" id="tglevel" class="number" min="0" max="100" value="25">
-</td>
-</tr>
+		<tr>
+			<td>Y-Axis Zoom</td>
+			<td>
+				<select id="wyaxis">
+					<option value="0">1</option>
+					<option value="1">2</option>
+					<option value="2">4</option>
+					<option value="3">8</option>
+					<option value="4">16</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
 
-<tr>
-<td>Y-Axis Zoom</td>
-<td>
-<select id="wyaxis">
-<option value="0">1</option>
-<option value="1">2</option>
-<option value="2">4</option>
-<option value="3">8</option>
-<option value="4">16</option>
-</select>
-</td>
-</tr>
-<tr>
+		<tr>
+			<td>X-Axis Zoom</td>
+			<td>
+				<select id="wxaxis">
+					<option value="0">16384</option>
+					<option value="1">8192</option>
+					<option value="2">4096</option>
+					<option value="3">2048</option>
+					<option value="4">1024</option>
+				</select>
+			</td>
+		</tr>
 
-<td>Y-Bottom</td>
-<td>
-<select id="wypower">
-<option value="0">-100dB</option>
-<option value="1">-90dB</option>
-<option value="2">-80dB</option>
-<option value="3">-70dB</option>
-<option value="4">-60dB</option>
-<option value="5">-50dB</option>
-<option value="6">-40dB</option>
-<option value="7">-30dB</option>
-<option value="8">-20dB</option>
-<option value="9">-10dB</option>
-</select>
-</td>
-</tr>
+		<!--	-------------------------------------------------------------------- -->
+		<tr>
+			<td colspan="2" height="40" class="fullx">Spectrum View</td>
+		</tr>
 
-<tr>
-<td>Y-Range</td>
-<td>
-<select id="wyrange">
-<option value="0">100dB</option>
-<option value="2">80dB</option>
-<option value="4">60dB</option>
-<option value="6">40dB</option>
-</select>
-</td>
-</tr>
-<tr>
+		<td>Y-Bottom</td>
+		<td>
+			<select id="wypower">
+				<option value="0">-100dB</option>
+				<option value="1">-90dB</option>
+				<option value="2">-80dB</option>
+				<option value="3">-70dB</option>
+				<option value="4">-60dB</option>
+				<option value="5">-50dB</option>
+				<option value="6">-40dB</option>
+				<option value="7">-30dB</option>
+				<option value="8">-20dB</option>
+				<option value="9">-10dB</option>
+			</select>
+		</td>
+		</tr>
 
-<td>X-Axis</td>
-<td>
-<select id="linlog">
-<option value="0">LIN</option>
-<option value="1">LOG</option>
-</select>
-</td>
-</tr>
+		<tr>
+			<td>Y-Range</td>
+			<td>
+				<select id="wyrange">
+					<option value="0">100dB</option>
+					<option value="2">80dB</option>
+					<option value="4">60dB</option>
+					<option value="6">40dB</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
 
-<tr>
-<td>Average</td>
-<td>
-<select id="average">
-<option value="1">1</option>
-<option value="16">16</option>
-<option value="32">32</option>
-<option value="64">64</option>
-<option value="128">128</option>
-<option value="256">256</option>
-</select>
-</td>
-</table>
+			<td>X-Axis</td>
+			<td>
+				<select id="linlog">
+					<option value="0">LIN</option>
+					<option value="1">LOG</option>
+				</select>
+			</td>
+		</tr>
 
-<div id="log">
-</div>
-<br><br><br><br>
+		<tr>
+			<td>Average</td>
+			<td>
+				<select id="average">
+					<option value="1">1</option>
+					<option value="16">16</option>
+					<option value="32">32</option>
+					<option value="64">64</option>
+					<option value="128">128</option>
+					<option value="256">256</option>
+				</select>
+			</td>
+	</table>
+
+	<div id="log">
+	</div>
+	<br><br><br><br>
 
 </body>
 <!--	-------------------------------------------------------------------- -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
 
-  gtag('config', 'G-7W70818VR0');
+	gtag('config', 'G-7W70818VR0');
 </script>
+
 </html>

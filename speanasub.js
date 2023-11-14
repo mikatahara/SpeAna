@@ -80,11 +80,15 @@ function RedrawWaveView(n)
 	fdg1.fVLine(0,0,100,100);
 	fdg1.fStrokeRect();
 
-	/* XŽ² */
+	/* Xï¿½ï¿½ */
 	fdg1.ctx.font = fsz;
 	fdg1.fVWriteText(yaxisstr[2*n], -ptx, 0);
 	fdg1.fVWriteText(" 0.0", -ptx, 50);
 	fdg1.fVWriteText(yaxisstr[2*n+1], -ptx, 100);
+
+	var iy1 = parseFloat(yaxisstr[2*n]);
+	var iy2 = parseFloat(yaxisstr[2*n+1]);
+	fdg1.fSetViewPort(0,1024,iy2,iy1);
 }
 
 function RedrawPowerView(n,m)

@@ -18,6 +18,7 @@ var mytimeDataArray	= null;
 var mFrequencyBinCount=0;
 var mRingBuf=null;
 var RingBufSize=65536;
+var mXlength=16384
 
 var mWp=0;
 var mTriglev=0.25;
@@ -51,7 +52,7 @@ var mFontSizeTable=[
 // constraints
 var mConstraints = {
 	video: false,
-	audio: true		//{ echoCancellation: false }  // ƒGƒR[ƒLƒƒƒ“ƒZƒ‰–³Œø‰»
+	audio: true		//{ echoCancellation: false }  // ï¿½Gï¿½Rï¿½[ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 // constraints (Chrome)
@@ -66,7 +67,7 @@ window.onload = function(){
 
 	$('#vgofft').click(function() {
 		if(onoff_flag==0){
-//			document.getElementById("gofft").innerHTML = "ƒ}ƒCƒN";
+//			document.getElementById("gofft").innerHTML = "ï¿½}ï¿½Cï¿½N";
 			onoff_flag=1;
 			console.log(onoff_flag);
 			if(audioContext==null) gofft();
@@ -118,6 +119,12 @@ window.onload = function(){
 		RedrawWaveView(val);
 	});
 
+	$('#wxaxis').change(function() {
+		var val=parseInt($(this).val());
+		mXlength = 16384>>val;
+		console.log(mXlength);
+	});
+
 	$('#wypower').change(function() {
 		var valp=parseInt($(this).val());
 		var valr=parseInt($('#wyrange').val());
@@ -158,11 +165,11 @@ window.onload = function(){
 
 	for(var i=0; i<mFrequencyBinCount; i++) mDataBuf[i]=0.;
 
-/* canvas Ý’è */
+/* canvas ï¿½Ý’ï¿½ */
 	canvaspw1 = document.getElementById( 'pw1' ) ;
 	canvasbkg = document.getElementById( 'bkg' ) ;
 
-/* •`‰æ—Ìˆæ‚Ì‰Šú‰» */
+/* ï¿½`ï¿½ï¿½Ìˆï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ */
 	fdg1 = new DrawGraph(0,100,0,100);
 	fdg1.fSetCanvas(canvasbkg);
 	fdg1.fResize();
@@ -173,7 +180,7 @@ window.onload = function(){
 	fdg2.fResize();
 	fdg2.ctx.globalAlpha=0.6;
 
-/* ViewPort/ Window ‚ÌÝ’è */
+/* ViewPort/ Window ï¿½ÌÝ’ï¿½ */
 	ix10 = window.innerWidth*0.1;
 	ix11 = window.innerWidth*0.9;
 	iy10 = window.innerHeight*0.1;
@@ -194,14 +201,14 @@ window.onload = function(){
 	fdg2.fVLine(0,0,100,100);
 	fdg2.fStrokeRect();
 
-/* •`‰æ—Ìˆæ‚Ì‰Šú‰» */
+/* ï¿½`ï¿½ï¿½Ìˆï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ */
 	var lwidth=window.innerWidth;
 	lwidth=Math.min(1200,Math.max(480,lwidth));
 	fn=getFontSize(lwidth);
 	fsz=mFontSizeTable[fn];
 	ptx=Math.floor(42./fdg1.fAx+fn*0.5);
 
-	/* XŽ² */
+	/* Xï¿½ï¿½ */
 	fdg1.ctx.font = fsz;
 	fdg1.fVWriteText("+1.0", -ptx, 0);
 	fdg1.fVWriteText(" 0.0", -ptx, 50);
@@ -213,7 +220,7 @@ window.onload = function(){
 	fdg2.fVWriteText(" -50dB", -ptx, 50);
 	fdg2.fVWriteText("-100dB", -ptx, 5);
 
-	/* YŽ² */
+	/* Yï¿½ï¿½ */
 	iy21 = window.innerHeight*0.940;
 	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
 	fdg2.fSetViewPort(0,100,0,100);
@@ -237,7 +244,7 @@ window.onload = function(){
 
 
 //
-// ‰æ–Ê‚Ìwidth‚©‚çAYŽ²‚Ì”Žš•\Ž¦‚Ìƒ}[ƒWƒ“‚ð‹‚ß‚é
+// ï¿½ï¿½Ê‚ï¿½widthï¿½ï¿½ï¿½ï¿½AYï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½Ìƒ}ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 function getNumericMargin(x)
 {
 //	return Math.floor(0.0417*x-8.0)
@@ -245,7 +252,7 @@ function getNumericMargin(x)
 }
 
 //
-// ‰æ–Ê‚Ìwidth‚©‚çAƒtƒHƒ“ƒgƒTƒCƒY‚ð‹‚ß‚é
+// ï¿½ï¿½Ê‚ï¿½widthï¿½ï¿½ï¿½ï¿½Aï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Tï¿½Cï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 function getFontSize(x)
 {
 	return Math.floor(0.0083*x - 3)
@@ -307,7 +314,7 @@ function gofft()
 	node.onaudioprocess=process_t;
 
 // ---------------------------------------------------------------------------
-	initXAixs();	//Power Group‚Ì€”õ
+	initXAixs();	//Power Groupï¿½Ìï¿½ï¿½ï¿½
 
 // ---------------------------------------------------------------------------
 	gotimer();
@@ -459,7 +466,7 @@ function gotimer(){
 		log.innerHTML += mAvr;
 
 		fdg1.fClearWindowInside();
-		fdg1.fDrawLine(mytimeDataArray);
+		fdg1.fDrawLineSize(mytimeDataArray,mXlength);
 
 		Drawpowergraph();
 

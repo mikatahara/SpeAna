@@ -66,8 +66,11 @@ if (window.chrome) {
 window.onload = function(){
 
 	$('#vgofft').click(function() {
+		var vgofft=document.getElementById("vgofft");
+		log.innerHTML+="vgofft";
+		log.innerHTML+=onoff_flag;
+
 		if(onoff_flag==0){
-//			document.getElementById("gofft").innerHTML = "�}�C�N";
 			onoff_flag=1;
 			console.log(onoff_flag);
 			if(audioContext==null) gofft();
@@ -76,25 +79,29 @@ window.onload = function(){
 				node.onaudioprocess=process_t;
 			}
 			gotimer();
+			vgofft.innerHTML="Start";
 			this.value="Start";
 			this.style.backgroundColor="#f9edce";
+			log.innerText+="Start";
 		} else {
 			onoff_flag=0;
 			clearInterval(timerId);
+			vgofft.innerHTML="Stop";
 			this.value="Stop";
 			this.style.backgroundColor="#cde8fa";
+			log.innerText+="Stop";
 		}
 	});
 	
-	
 	$('#vtrigger').click(function(){
+		var vtrigger=document.getElementById("vtrigger");
 		if(mTrigSw){
 			mTrigSw=false;
-			this.value="Trigger OFF";
+			vtrigger.innerHTML="Trigger OFF";
 			this.style.backgroundColor="#f9edce";
 		} else {
 			mTrigSw=true;
-			this.value="Trigger ON";
+			vtrigger.innerHTML="Trigger ON";
 			this.style.backgroundColor="#cde8fa";
 		}
 	});
@@ -230,7 +237,7 @@ window.onload = function(){
 	fdg2.fVWriteText("20kHz", 95, 0);
 
 // ---------------------------------------------------------------------------
-	log=document.getElementById("log");
+	log.innerHTML+="AAAAAAAAAA";
 
 	iy21 = window.innerHeight*0.9;
 	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
@@ -263,18 +270,24 @@ function gofft()
 // ---------------------------------------------------------------------------
 	//Audio Initialize
 	audioContext = new AudioContext();
+
 	node = audioContext.createScriptProcessor(mFftsize, 2, 2);
 	sampleRate = audioContext.sampleRate;
 	myArrayBuffer = audioContext.createBuffer(2, mFftsize, audioContext.sampleRate);
 
-// ---------------------------------------------------------------------------
+	if(audioContext!=null) log.innerText += "audioContext OK\n";
+	else log.innerText += "audioContext NG\n";
+
+	// ---------------------------------------------------------------------------
 	//Get Usermedia
     navigator.getUserMedia = navigator.getUserMedia ||
                               navigator.webkitGetUserMedia ||
                               navigator.mozGetUserMedia;
 
 	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-		log.innerText += "Navi OK\n"
+		log.innerText += "Navi OK\n";
+	} else {
+		log.innerText += "Navi NG\n";
 	}
 
 /*
@@ -317,10 +330,7 @@ function gofft()
 	initXAixs();	//Power Group�̏���
 
 // ---------------------------------------------------------------------------
-	gotimer();
-
-// ---------------------------------------------------------------------------
-//	log=document.getElementById("log");
+//	gotimer();
 }
 
 // ---------------------------------------------------------------------------

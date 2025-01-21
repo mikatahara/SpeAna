@@ -32,6 +32,7 @@ body{
 
 #bkg{
 	z-index:1;
+	margin-top: 32px;
 }
 
 #pw1{
@@ -47,6 +48,23 @@ canvas {
 
 .skip{
     height: 100vh;
+}
+
+table {
+	font-size: large;
+	margin-left: 28px;
+}
+
+td {
+	border: none;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 16px;
+}
+
+th {
+	border: none;
+	font-size: 18px;
 }
 
 h2{
@@ -115,16 +133,28 @@ select{
 	h2{
 		z-index:3;
 		margin-left: 28px;
-		font-size: 52px;
+		font-size: 58px;
+	}
+	
+	td {
+		border: none;
+		text-align: center;
+		vertical-align: middle;
+		font-size: 48px;
 	}
 
+	th {
+		border: none;
+		font-size: 52px;
+	}
+	
 	.button{
 		z-index:3;
 		width:400px;
 		height:100px;
 		padding:10px;
 		margin-left	:28px;
-		margin-top	:18px;
+		margin-top	:0px;
 		margin-bottom	:18px;
 		font-size: 52px;
 		background: #cde8fa;

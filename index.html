@@ -25,12 +25,14 @@
 	<canvas id="bkg"></canvas>
 	<div class="skip">
 	</div>
+	<div id="log">LOGLOG
+	</div>
 
-	<input button value="Stop" type="button" id="vgofft" class="button"><br>
-	<input button value="Trigger ON" type="button" id="vtrigger" class="button"><br>
+	<button type="button" id="vgofft" class="button">STOP</button><br>
+	<button type="button" id="vtrigger" class="button">Trigger ON</button><br>
 
 <br>
-	<table border="0">
+	<table>
 		<!--	-------------------------------------------------------------------- -->
 		<tr>
 			<td colspan="2" height="40" class="fullx">Threshold</td>
@@ -142,12 +144,14 @@
 			</td>
 	</table>
 
-	<div id="log">
-	</div>
 	<br><br><br><br>
 
 </body>
 <!--	-------------------------------------------------------------------- -->
+<script>
+	log=document.getElementById("log");
+</script>
+
 <script>
 	window.dataLayer = window.dataLayer || [];
 	function gtag() { dataLayer.push(arguments); }

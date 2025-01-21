@@ -82,14 +82,12 @@ window.onload = function(){
 			vgofft.innerHTML="Start";
 			this.value="Start";
 			this.style.backgroundColor="#f9edce";
-			log.innerText+="Start";
 		} else {
 			onoff_flag=0;
 			clearInterval(timerId);
 			vgofft.innerHTML="Stop";
 			this.value="Stop";
 			this.style.backgroundColor="#cde8fa";
-			log.innerText+="Stop";
 		}
 	});
 	

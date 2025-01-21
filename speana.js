@@ -235,8 +235,6 @@ window.onload = function(){
 	fdg2.fVWriteText("20kHz", 95, 0);
 
 // ---------------------------------------------------------------------------
-	log.innerHTML+="AAAAAAAAAA";
-
 	iy21 = window.innerHeight*0.9;
 	fdg2.fSetWindowXY(ix20,ix21,iy20,iy21);
 	fdg2.fSetViewPort(0,100,0,100);

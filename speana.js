@@ -19,6 +19,7 @@ var mFrequencyBinCount=0;
 var mRingBuf=null;
 var RingBufSize=65536;
 var mXlength=16384
+var mChirp=false;
 
 var mWp=0;
 var mTriglev=0.25;
@@ -105,8 +106,17 @@ window.onload = function(){
 	});
 
 	$('#vchirp').click(function(){
+		var vchirp=document.getElementById("vchirp");
+		vchirp.innerHTML="Start";
+//		$('#vchirp').style.backgroundColor="#f9edce";
         loadDogSound("https://mikatahara.github.io/SpeAna/chirp16k.wav");
+		mChirp=true;
 		playSound();
+		setTimeout(function(){
+			vchirp.innerHTML="Chirp";
+			mChirp=false;
+		}, 2000);
+//		$('#vchirp').style.backgroundColor="#cde8fa";
 	});
 
 	$('#fftleng').change(function() {
@@ -443,7 +453,7 @@ function gotimer(){
 			mImg[i]=0;
 		}
 
-		blackman( mRel );
+		if(!mChirp) blackman( mRel );
 		FFT( mRel, mImg, mFftsize, 0 );
 
 		if(mAvr==1){

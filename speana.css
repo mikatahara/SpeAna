@@ -42,7 +42,7 @@ body{
 canvas {
     position: absolute;
     top: 0;
-	left 0;
+	left: 0;
     margin: auto;
 }
 
@@ -85,6 +85,7 @@ table{
 .fullx{
 	background-color: #ccceff;
 	text-align: center;
+	height: 40px;
 }
 
 

@@ -6,6 +6,7 @@
 var mLocalAudioBuffer= null;
 var mAudioContext = null;
 var mLoadFlag=false;
+var mChirpGain=0.25;
 
 function initAudioBuffer()
 {
@@ -34,7 +35,7 @@ function playSound()
 {
 	var audioSource = null;	// creates a sound source
     var gain = mAudioContext.createGain();
-    gain.gain.value = 0.8;
+    gain.gain.value = mChirpGain;
 	audioSource = mAudioContext.createBufferSource();	// creates a sound source
 	audioSource.buffer = mLocalAudioBuffer;
     audioSource.connect(gain);			    // tell the source which sound to play

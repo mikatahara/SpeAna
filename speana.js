@@ -129,6 +129,10 @@ window.onload = function(){
 		mTriglev=parseInt($(this).val())/100;
 	});
 
+	$('#cpgain').change(function() {
+		mChirpGain=parseInt($(this).val())/100;
+	});
+
 	$('#tpos').change(function() {
 		mTrigpos=Math.floor(mFftsize*parseInt($(this).val())/100);
 	});

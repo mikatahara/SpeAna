@@ -104,6 +104,10 @@ window.onload = function(){
 		}
 	});
 
+	$('#vchirp').click(function(){
+        loadDogSound("https://mikatahara.github.io/SpeAna/chirp16k.wav");
+		playSound();
+	});
 
 	$('#fftleng').change(function() {
 		console.log($(this).val());
@@ -157,6 +161,8 @@ window.onload = function(){
 		}
 	});
 
+
+
 	// Initial Parameter
 	mTriglev=parseInt($('#tglevel').val())/100;
 	mTrigpos=Math.floor(mFftsize*parseInt($('#tpos').val())/100);
@@ -169,6 +175,10 @@ window.onload = function(){
 	mRingBuf = new Float32Array(RingBufSize);
 
 	for(var i=0; i<mFrequencyBinCount; i++) mDataBuf[i]=0.;
+
+	// Load Chirp Signal
+	initAudioBuffer();
+
 
 /* canvas �ݒ� */
 	canvaspw1 = document.getElementById( 'pw1' ) ;

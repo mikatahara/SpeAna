@@ -15,7 +15,6 @@ function initAudioBuffer()
 
 function loadDogSound(url) {
     if(mLoadFlag) return;
-    mLoadFlag=true;
 
     var request = new XMLHttpRequest();
 
@@ -26,6 +25,7 @@ function loadDogSound(url) {
 	request.onload = function() {
             mAudioContext.decodeAudioData(request.response, function(buffer) {
             mLocalAudioBuffer=buffer;
+			mLoadFlag=true;
 		}, function(){ alert('Error'); } );
 	}
 	request.send();
